@@ -36,7 +36,8 @@ router.post('/', async (req, res) => {
         name: guessCity.name,
         country_code: guessCity.country_code,
         lat: guessCity.lat,
-        lon: guessCity.lon
+        lon: guessCity.lon,
+        population: guessCity.population
       },
       feedback,
       solved,
@@ -50,7 +51,8 @@ router.post('/', async (req, res) => {
         name: secretCity.name,
         country_code: secretCity.country_code,
         lat: secretCity.lat,
-        lon: secretCity.lon
+        lon: secretCity.lon,
+        population: secretCity.population
       };
     }
     

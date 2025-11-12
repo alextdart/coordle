@@ -36,6 +36,25 @@ export function calculateFeedback(guess: City, secret: City, neighbors: Set<stri
   
   const arrow = getDirectionalArrow(latHint, lonHint);
   
+  // Population feedback
+  const guessPopulation = guess.population || 0;
+  const secretPopulation = secret.population || 0;
+  let populationHint: 'higher' | 'lower' | 'similar' = 'similar';
+  let populationColor: 'green' | 'yellow' | 'red' = 'green';
+  
+  if (guessPopulation && secretPopulation) {
+    const popDiff = Math.abs(guessPopulation - secretPopulation);
+    const popRatio = popDiff / Math.max(guessPopulation, secretPopulation);
+    
+    if (popRatio <= 0.2) { // Within 20%
+      populationHint = 'similar';
+      populationColor = 'green';
+    } else {
+      populationHint = guessPopulation < secretPopulation ? 'higher' : 'lower';
+      populationColor = popRatio <= 0.5 ? 'yellow' : 'red';
+    }
+  }
+  
   // Country feedback
   let countryMatch: 'exact' | 'neighbor' | 'other' = 'other';
   let countryColor: 'green' | 'yellow' | 'red' = 'red';
@@ -65,6 +84,11 @@ export function calculateFeedback(guess: City, secret: City, neighbors: Set<stri
       color: lonColor,
       hint: lonHint,
       arrow: arrow
+    },
+    population: {
+      value: guessPopulation,
+      hint: populationHint,
+      color: populationColor
     },
     country: {
       match: countryMatch,

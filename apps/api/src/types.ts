@@ -28,6 +28,11 @@ export interface GuessResult {
       hint?: 'E' | 'W';
       arrow?: string;
     };
+    population: {
+      value: number;
+      hint: 'higher' | 'lower' | 'similar';
+      color: 'green' | 'yellow' | 'red';
+    };
     country: {
       match: 'exact' | 'neighbor' | 'other';
       color: 'green' | 'yellow' | 'red';

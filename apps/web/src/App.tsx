@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GuessRow from './components/GuessRow';
-import { GuessResult, GameStatus, City } from './types';
+import { GuessResult, GameStatus } from './types';
 import { getGameStatus, submitGuess } from './api';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   const [gameEnded, setGameEnded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [answer, setAnswer] = useState<City | null>(null);
+
 
   useEffect(() => {
     getGameStatus()
@@ -34,9 +34,6 @@ function App() {
       
       if (result.solved || result.gameEnded) {
         setGameEnded(true);
-        if (result.answer) {
-          setAnswer(result.answer);
-        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -75,6 +72,7 @@ function App() {
           <div className="guess-cell"><strong>Hemisphere</strong></div>
           <div className="guess-cell"><strong>Latitude</strong></div>
           <div className="guess-cell"><strong>Longitude</strong></div>
+          <div className="guess-cell"><strong>Population</strong></div>
           <div className="guess-cell"><strong>Country</strong></div>
         </div>
         
@@ -114,11 +112,13 @@ function App() {
           ) : (
             <div>
               <p style={{ color: '#ef4444' }}>Game over! Better luck tomorrow.</p>
-              {answer && (
-                <p style={{ color: '#fbbf24' }}>
-                  The answer was: <strong>{answer.name}</strong> ({answer.country_code})
-                  <br />
-                  <small>Coordinates: {answer.lat}°, {answer.lon}°</small>
+              {guesses[guesses.length - 1]?.answer && (
+                <p style={{ color: '#ffffff' }}>
+                  The answer was: <strong>{guesses[guesses.length - 1].answer!.name}</strong> 
+                  ({guesses[guesses.length - 1].answer!.country_code}) 
+                  at {guesses[guesses.length - 1].answer!.lat.toFixed(2)}°, {guesses[guesses.length - 1].answer!.lon.toFixed(2)}°
+                  {guesses[guesses.length - 1].answer!.population && 
+                    ` with ${(guesses[guesses.length - 1].answer!.population! / 1000000).toFixed(1)}M people`}
                 </p>
               )}
             </div>

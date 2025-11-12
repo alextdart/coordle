@@ -3,6 +3,7 @@ export interface City {
   country_code: string;
   lat: number;
   lon: number;
+  population?: number;
 }
 
 export interface Feedback {
@@ -22,6 +23,11 @@ export interface Feedback {
     color: 'green' | 'yellow' | 'red';
     hint?: 'E' | 'W';
     arrow?: string;
+  };
+  population: {
+    value: number;
+    hint: 'higher' | 'lower' | 'similar';
+    color: 'green' | 'yellow' | 'red';
   };
   country: {
     match: 'exact' | 'neighbor' | 'other';
