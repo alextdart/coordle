@@ -1,0 +1,83 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.guess-table {
+  display: table;
+  margin: 2rem auto;
+  border-spacing: 0.5rem;
+}
+
+.guess-row {
+  display: table-row;
+}
+
+.guess-cell {
+  display: table-cell;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.color-green {
+  background-color: #22c55e;
+  color: white;
+}
+
+.color-yellow {
+  background-color: #eab308;
+  color: white;
+}
+
+.color-red {
+  background-color: #ef4444;
+  color: white;
+}
+
+.input-bar {
+  margin: 2rem 0;
+}
+
+.input-bar input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #374151;
+  border-radius: 6px;
+  background-color: #374151;
+  color: white;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.input-bar button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.input-bar button:hover {
+  background-color: #2563eb;
+}
+
+.input-bar button:disabled {
+  background-color: #6b7280;
+  cursor: not-allowed;
+}
