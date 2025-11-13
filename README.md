@@ -10,18 +10,36 @@ Daily city guessing game inspired by Wordle. Guess the secret city in 6 tries us
 # Set up environment
 cp .env.example .env
 
-# Install API dependencies
-cd apps/api
-npm install
-
-# Install web app dependencies  
-cd ../web
-npm install
+# Install all dependencies
+npm run install:all
 
 # Start both servers (in separate terminals)
-cd ../api && npm run dev    # API on :3000
-cd ../web && npm run dev    # Web on :5173
+npm run dev:api    # API on :3000
+npm run dev:web    # Web on :5173
 ```
+
+### Build for Production
+
+```bash
+# Build both apps
+./build.sh
+
+# Or manually:
+cd apps/api && npm run build
+cd ../web && npm run build
+```
+
+## 🚀 Deployment
+
+Deploy to Vercel in 3 steps:
+
+1. **Push to GitHub**
+2. **Connect to Vercel** (auto-detects config)
+3. **Set environment variables** in Vercel dashboard
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
+
+**Live Demo**: Deploy your own at `https://yourname-coordle.vercel.app`
 
 ### Game Rules
 

@@ -6,8 +6,14 @@ import { City } from '../types.js';
 let citiesCache: City[] | null = null;
 let neighborsCache: Set<string> | null = null;
 
-const CITIES_PATH = path.resolve(process.cwd(), '../../supabase/seed/cities.min.json');
-const NEIGHBORS_PATH = path.resolve(process.cwd(), '../../supabase/seed/neighbors.csv');
+// Handle different paths for local dev vs Vercel deployment
+const isVercel = process.env.VERCEL === '1';
+const CITIES_PATH = isVercel 
+  ? path.resolve(process.cwd(), 'supabase/seed/cities.min.json')
+  : path.resolve(process.cwd(), '../../supabase/seed/cities.min.json');
+const NEIGHBORS_PATH = isVercel
+  ? path.resolve(process.cwd(), 'supabase/seed/neighbors.csv')
+  : path.resolve(process.cwd(), '../../supabase/seed/neighbors.csv');
 
 export async function loadCities(): Promise<City[]> {
   if (citiesCache) return citiesCache;
