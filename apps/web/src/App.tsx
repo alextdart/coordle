@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GuessRow from './components/GuessRow';
+import AutocompleteInput from './components/AutocompleteInput';
 import { GuessResult, GameStatus } from './types';
 import { getGameStatus, submitGuess } from './api';
 
@@ -91,18 +92,29 @@ function App() {
       </div>
 
       {!gameEnded && (
-        <form onSubmit={handleSubmitGuess} className="input-bar">
-          <input
-            type="text"
+        <div className="input-bar">
+          <AutocompleteInput
             value={currentGuess}
-            onChange={(e) => setCurrentGuess(e.target.value)}
-            placeholder="Enter a city name..."
+            onChange={setCurrentGuess}
+            onSubmit={() => {
+              if (currentGuess.trim() && !loading) {
+                handleSubmitGuess({ preventDefault: () => {} } as React.FormEvent);
+              }
+            }}
             disabled={loading}
+            placeholder="Enter a city name..."
           />
-          <button type="submit" disabled={loading || !currentGuess.trim()}>
+          <button 
+            onClick={() => {
+              if (currentGuess.trim() && !loading) {
+                handleSubmitGuess({ preventDefault: () => {} } as React.FormEvent);
+              }
+            }}
+            disabled={loading || !currentGuess.trim()}
+          >
             {loading ? 'Guessing...' : 'Guess'}
           </button>
-        </form>
+        </div>
       )}
 
       {gameEnded && (

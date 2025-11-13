@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { loadCities, getTodaySecretCity, findCityByName } from '../utils/data.js';
+import { loadCities, getTodaySecretCity, findCityByName, loadNeighbors, areNeighbors } from '../utils/data.js';
 import { calculateFeedback } from '../logic/feedback.js';
 
 const router = Router();
@@ -22,10 +22,22 @@ router.post('/', async (req, res) => {
     const date = new Date().toISOString().slice(0, 10);
     const secretCity = getTodaySecretCity(date, cities);
     
-    // Load country neighbors (TODO: implement properly)
-    const neighbors = new Set<string>();
+    // Load country neighbors
+    const neighborsSet = await loadNeighbors();
+    const secretNeighbors = new Set<string>();
     
-    const feedback = calculateFeedback(guessCity, secretCity, neighbors);
+    // Find all neighbors of the secret city's country
+    for (const neighbor of neighborsSet) {
+      const [countryA, countryB] = neighbor.split('-');
+      if (countryA === secretCity.country_code) {
+        secretNeighbors.add(countryB);
+      }
+      if (countryB === secretCity.country_code) {
+        secretNeighbors.add(countryA);
+      }
+    }
+    
+    const feedback = calculateFeedback(guessCity, secretCity, secretNeighbors);
     const solved = guessCity.id === secretCity.id;
     const maxGuesses = 6;
     const remaining = maxGuesses - guessCount;

@@ -81,3 +81,68 @@ body {
   background-color: #6b7280;
   cursor: not-allowed;
 }
+
+/* Autocomplete styles */
+.autocomplete-container {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #374151;
+  border-radius: 6px;
+  background-color: #374151;
+  color: white;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  width: 250px;
+}
+
+.autocomplete-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: 2px;
+}
+
+.suggestion-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4b5563;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background-color: #4b5563;
+}
+
+.city-name {
+  font-weight: 500;
+  color: white;
+}
+
+.country-code {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-family: monospace;
+}

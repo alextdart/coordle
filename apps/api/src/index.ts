@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import statusRouter from './routes/status.js';
 import guessRouter from './routes/guess.js';
 import debugRouter from './routes/debug.js';
+import suggestionsRouter from './routes/suggestions.js';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/status', statusRouter);
 app.use('/api/guess', guessRouter);
 app.use('/api/debug', debugRouter);
+app.use('/api/suggestions', suggestionsRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -24,3 +24,15 @@ export async function submitGuess(guess: string, guessCount: number) {
   
   return response.json();
 }
+
+export async function getCitySuggestions(query: string) {
+  if (!query.trim()) return [];
+  
+  const response = await fetch(`${API_BASE}/api/suggestions?q=${encodeURIComponent(query)}&limit=5`);
+  if (!response.ok) {
+    console.error('Failed to fetch suggestions');
+    return [];
+  }
+  
+  return response.json();
+}
