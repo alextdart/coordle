@@ -22,9 +22,5 @@
       "src": "/(.*)",
       "dest": "/apps/web/dist/$1"
     }
-  ],
-  "env": {
-    "DAILY_SALT": "@daily_salt",
-    "ADMIN_TOKEN": "@admin_token"
-  }
+  ]
 }
